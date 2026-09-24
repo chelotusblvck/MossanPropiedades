@@ -80,7 +80,7 @@ export default function PropertyCard({ propiedad: p }) {
     <article className="group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-xl">
       <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
         <Carrusel imagenes={p.imagenes ?? []} titulo={p.titulo} />
-        {/* Todas las etiquetas en una sola fila que hace salto: en tarjetas angostas nunca se tapan entre sí */}
+        {/* Operación y tipo en una fila que hace salto: en tarjetas angostas nunca se tapan entre sí */}
         <div className="pointer-events-none absolute inset-x-3 top-3 flex flex-wrap items-start gap-1.5">
           <span className={`rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide shadow ${modalidad.badge}`}>
             {modalidad.label}
@@ -88,12 +88,13 @@ export default function PropertyCard({ propiedad: p }) {
           <span className="rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-semibold text-slate-700 shadow">
             {TIPO_LABEL[p.tipo] ?? 'Propiedad'}
           </span>
-          {p.destacada && (
-            <span className="ml-auto rounded-full bg-rose-500 px-2.5 py-1 text-[11px] font-bold uppercase text-white shadow">
-              Destacada
-            </span>
-          )}
         </div>
+        {/* Destacada va abajo a la izquierda, lejos de la fila superior para no chocar con operaciones largas */}
+        {p.destacada && (
+          <span className="pointer-events-none absolute bottom-3 left-3 z-10 rounded-full bg-rose-500 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white shadow">
+            Destacada
+          </span>
+        )}
       </div>
 
       <div className="flex flex-1 flex-col p-5">
