@@ -29,8 +29,12 @@ services:
       # B) Todo lo que se escribe (base, fotos, respaldos) en el disco persistente:
       # - key: DATA_DIR
       #   value: /var/data
+      # Base inicial: la exportada con "node scripts/exportar-demo.mjs" (clientes, propiedades, historial y
+      # fotos, sin credenciales). Se copia sólo si todavía no hay base (en el plan gratis, en cada arranque).
+      - key: DEMO_DB
+        value: ./demo/propiedades.db
       - key: DEMO_SEED
-        value: "true" # carga datos de ejemplo sólo si la base está vacía (nunca borra datos existentes)
+        value: "true" # respaldo: si aun así la base queda vacía, carga las propiedades de ejemplo
       - key: TRUST_PROXY
         value: "true" # Render pone un proxy delante: así los límites por IP ven la IP real
       - key: ADMIN_PASSWORD

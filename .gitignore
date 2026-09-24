@@ -5,6 +5,9 @@ backend/data/
 # Fotos subidas, logos y comprobantes de pago (datos del negocio, no código)
 backend/uploads/
 uploads/
+# Excepción: base inicial y fotos de la DEMO (exportadas sin credenciales con scripts/exportar-demo.mjs)
+!backend/demo/uploads/
+backend/demo/.tmp-*
 # Respaldos: contienen datos personales de clientes (RUT, teléfonos) y liquidaciones
 backups/
 *.log

@@ -2,9 +2,11 @@ import { DatabaseSync } from 'node:sqlite';
 import fs from 'node:fs';
 import path from 'node:path';
 import { config } from '../config.js';
+import { prepararBaseDemo } from './demoInicial.js';
 
 const dbPath = path.resolve(config.dbPath);
 fs.mkdirSync(path.dirname(dbPath), { recursive: true });
+prepararBaseDemo(dbPath); // sólo si DEMO_DB está definida y aún no hay base
 
 export const db = new DatabaseSync(dbPath);
 
