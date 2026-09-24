@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --color-brand-50: #f0f7f7;
+  --color-brand-100: #d9ecec;
+  --color-brand-200: #b3d8d9;
+  --color-brand-300: #7fbcbe;
+  --color-brand-400: #4a9ea1;
+  --color-brand-500: #2d8285;
+  --color-brand-600: #22686b;
+  --color-brand-700: #1d5457;
+  --color-brand-800: #1a4547;
+  --color-brand-900: #163a3c;
+  --color-brand-950: #0b2224;
+
+  /* Acento de la marca (botones de acción). La línea gráfica del asistente reemplaza estos valores
+     y los de brand-* en tiempo real (ver lib/tema.js). No usar para advertencias: esas siguen en amber. */
+  --color-acento-300: #fcd34d;
+  --color-acento-400: #fbbf24;
+  --color-acento-500: #f59e0b;
+  --color-acento-contraste: #0b2224; /* texto sobre el acento */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-slate-50 text-slate-800 antialiased;
+}

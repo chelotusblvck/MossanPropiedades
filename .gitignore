@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env
+backend/data/
+# Fotos subidas, logos y comprobantes de pago (datos del negocio, no código)
+backend/uploads/
+uploads/
+# Respaldos: contienen datos personales de clientes (RUT, teléfonos) y liquidaciones
+backups/
+*.log

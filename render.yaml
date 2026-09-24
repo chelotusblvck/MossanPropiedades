@@ -1,0 +1,50 @@
+# Blueprint de Render (https://render.com/docs/blueprint-spec)
+# Un solo Web Service de Node: compila el frontend (Vite) y el backend (Express) lo sirve junto con la API.
+#
+# DOS MODOS — elige uno:
+#  A) DEMO GRATIS (así viene): plan "free", sin disco. La base SQLite vive en el disco efímero del
+#     servicio: se BORRA en cada deploy y cada vez que Render duerme el servicio (15 min sin visitas).
+#     DEMO_SEED=true vuelve a cargar las propiedades de ejemplo al despertar.
+#  B) PERSISTENTE (datos reales): plan "starter" o superior + disco. Descomenta el bloque "disk" y
+#     DATA_DIR, y cambia "plan". Base, fotos y respaldos quedan en /var/data y sobreviven a los deploys.
+
+services:
+  - type: web
+    name: mossan-propiedades
+    runtime: node
+    plan: free # B) starter
+    region: virginia # la más cercana a Chile
+    buildCommand: npm ci --prefix backend && npm ci --prefix frontend --include=dev && npm run build --prefix frontend
+    startCommand: npm start --prefix backend
+    healthCheckPath: /api/health
+    autoDeploy: true
+    # B) Disco persistente (requiere plan de pago):
+    # disk:
+    #   name: datos
+    #   mountPath: /var/data
+    #   sizeGB: 1
+    envVars:
+      - key: NODE_VERSION
+        value: "24" # node:sqlite estable
+      # B) Todo lo que se escribe (base, fotos, respaldos) en el disco persistente:
+      # - key: DATA_DIR
+      #   value: /var/data
+      - key: DEMO_SEED
+        value: "true" # carga datos de ejemplo sólo si la base está vacía (nunca borra datos existentes)
+      - key: TRUST_PROXY
+        value: "true" # Render pone un proxy delante: así los límites por IP ven la IP real
+      - key: ADMIN_PASSWORD
+        sync: false # Render la pide al crear el servicio (contraseña del panel /admin)
+      - key: ADMIN_API_KEY
+        generateValue: true
+      # Webpay en ambiente de pruebas de Transbank (tarjetas de prueba, no cobra)
+      - key: WEBPAY_AMBIENTE
+        value: integracion
+      - key: MELI_SYNC_INTERVAL_MINUTES
+        value: "0"
+      # Respaldos automáticos: sólo tienen sentido con disco persistente (modo B)
+      - key: BACKUP_AUTO
+        value: "false"
+      # SITE_URL (enlaces de los correos) toma sola la URL de Render (RENDER_EXTERNAL_URL).
+      # Defínela sólo si usas un dominio propio. SMTP_* y NOTIFY_EMAIL: agrégalos en el panel de Render
+      # si quieres que la demo envíe correos (sin SMTP los correos sólo se muestran en los logs).

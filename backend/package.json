@@ -1,0 +1,22 @@
+{
+  "name": "inmobiliaria-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node --watch --no-warnings=ExperimentalWarning src/server.js",
+    "start": "node --no-warnings=ExperimentalWarning src/server.js",
+    "seed": "node --no-warnings=ExperimentalWarning src/db/seed.js",
+    "probar-correo": "node --no-warnings=ExperimentalWarning src/scripts/probarCorreo.js"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "nodemailer": "^7.0.13"
+  }
+}
